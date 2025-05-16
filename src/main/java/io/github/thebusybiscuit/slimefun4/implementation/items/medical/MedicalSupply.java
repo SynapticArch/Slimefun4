@@ -1,16 +1,17 @@
 package io.github.thebusybiscuit.slimefun4.implementation.items.medical;
 
+import city.norain.slimefun4.compatibillty.VersionedAttribute;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemHandler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedPotionEffectType;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -30,10 +31,10 @@ public abstract class MedicalSupply<T extends ItemHandler> extends SimpleSlimefu
 
         curedEffects.add(PotionEffectType.POISON);
         curedEffects.add(PotionEffectType.WITHER);
-        curedEffects.add(PotionEffectType.SLOW);
-        curedEffects.add(PotionEffectType.SLOW_DIGGING);
+        curedEffects.add(VersionedPotionEffectType.SLOWNESS);
+        curedEffects.add(VersionedPotionEffectType.MINING_FATIGUE);
         curedEffects.add(PotionEffectType.WEAKNESS);
-        curedEffects.add(PotionEffectType.CONFUSION);
+        curedEffects.add(VersionedPotionEffectType.NAUSEA);
         curedEffects.add(PotionEffectType.BLINDNESS);
         curedEffects.add(PotionEffectType.BAD_OMEN);
     }
@@ -70,7 +71,7 @@ public abstract class MedicalSupply<T extends ItemHandler> extends SimpleSlimefu
      */
     public void heal(@Nonnull LivingEntity n) {
         double health = n.getHealth() + healAmount;
-        double maxHealth = n.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        double maxHealth = n.getAttribute(VersionedAttribute.getMaxHealth()).getValue();
         n.setHealth(Math.min(health, maxHealth));
     }
 }

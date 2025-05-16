@@ -2,14 +2,11 @@
 
 Looking for English (or Original) Version? [**Click here**](https://github.com/Slimefun/Slimefun4/)
 
-想要直接下载吗? [**单击此处
-**](https://github.com/StarWishsama/Slimefun4/blob/master/README.md#floppy_disk-下载-slimefun4)
+想要直接下载吗? [**单击此处**](https://github.com/SlimefunGuguProject/Slimefun4/blob/master/README.md#floppy_disk-下载-slimefun4)
 
 欢迎加入 QQ 交流群：807302496
 
-本插件的额外保护检查现已移至 [SlimeGlue(粘液胶)](https://github.com/Xzavier0722/SlimeGlue/) 处理，请下载此插件以获得对其他插件的额外保护检查。
-
-MCBBS 链接: https://www.mcbbs.net/thread-827594-1-1.html
+下载 [SlimeGlue(粘液胶)](https://github.com/Xzavier0722/SlimeGlue/) 以保证 Slimefun 与其他保护插件的兼容性
 
 ### 订阅计划
 
@@ -20,10 +17,10 @@ MCBBS 链接: https://www.mcbbs.net/thread-827594-1-1.html
 
 了解订阅计划：[订阅计划](https://builds.guizhanss.com/sf-subscription)
 
-![目前版本](https://img.shields.io/github/v/release/StarWishSama/Slimefun4?include_prereleases)
-![构建状态](https://builds.guizhanss.com/StarWishsama/Slimefun4/master/badge.svg)
-[![Issues](https://img.shields.io/github/issues/StarWishsama/Slimefun4.svg?style=popout)](https://github.com/StarWishsama/Slimefun4/issues)
-![下载数](https://img.shields.io/github/downloads/StarWishsama/Slimefun4/total)
+![目前版本](https://img.shields.io/github/v/release/SlimefunGuguProject/Slimefun4?include_prereleases)
+![构建状态](https://builds.guizhanss.com/SlimefunGuguProject/Slimefun4/master/badge.svg)
+[![Issues](https://img.shields.io/github/issues/SlimefunGuguProject/Slimefun4.svg?style=popout)](https://github.com/SlimefunGuguProject/Slimefun4/issues)
+![下载数](https://img.shields.io/github/downloads/SlimefunGuguProject/Slimefun4/total)
 
 使用汉化版之后，**禁止**在官方问题追踪器创建新问题!  
 如果你执意要这么做, 请在反馈时使用**官方**开发版并且使用**英语**提交问题。  
@@ -31,12 +28,12 @@ MCBBS 链接: https://www.mcbbs.net/thread-827594-1-1.html
 
 Slimefun 是一个致力于提供模组般体验的插件。它提供了你能想到的一切，不管是喷气背包还是魔法祭坛！
 
-Slimefun 让每个玩家可以自己决定在魔法或科技方面发展。  
+Slimefun 让每个玩家可以自行决定在魔法或科技方面发展。  
 从魔杖到核反应堆，我们应有尽有。  
 除此之外，我们还有魔法祭坛、能源网络甚至物品运输系统。
 
 该项目始于 2013 年，至今仍在发展。
-现在已从独自开发插件到发展成一个拥有数千名参与者和百名贡献者的社区。  
+现在已从独立小型插件到发展成一个拥有数千名参与者和百名贡献者的社区。  
 目前 Slimefun 添加了超过 **500 种新物品/合成配方**
 ([查看关于 Slimefun 的历史](https://slimefun-wiki.guizhanss.cn/Slimefun-in-a-nutshell))。
 
@@ -47,7 +44,7 @@ Slimefun 让每个玩家可以自己决定在魔法或科技方面发展。
 
 * **[下载 Slimefun 4](#floppy_disk-下载-slimefun4)**
 * **[Discord 服务器](#discord)**
-* **[Bug 反馈](https://github.com/StarWishsama/Slimefun4/issues)**
+* **[Bug 反馈](https://github.com/SlimefunGuguProject/Slimefun4/issues)**
 * **[官方Wiki](https://github.com/Slimefun/Slimefun4/wiki)**
 * **[非官方中文 Wiki](https://slimefun-wiki.guizhanss.cn/)**
 * **[FAQ](https://slimefun-wiki.guizhanss.cn/FAQ)**
@@ -62,8 +59,8 @@ Slimefun 4 可以在[鬼斩构建站](https://builds.guizhanss.com)页面中**�
 
 |                      | 测试版 (最新更新)                                                                         | "稳定版"                                                                                 |
 |----------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| **支持的 Minecraft 版本** | :video_game: 1.16.X - 1.20.X                                                       | :video_game: 1.16.X - 1.20.X                                                          |
-| **Java 版本**          | :computer: **Java 16 (或更高)**                                                       | :computer: **Java 16 (或更高)**                                                          |
+| **支持的 Minecraft 版本** | :video_game: 1.17.X - 1.21.2                                                       | :video_game: 1.17.X - 1.21.2                                                          |
+| **Java 版本**          | :computer: **Java 17+**                                                            | :computer: **Java 17+**                                                               |
 | **自动更新系统**           | :heavy_check_mark:                                                                 | :x:                                                                                   |
 | **频繁更新**             | :heavy_check_mark:                                                                 | :x:                                                                                   |
 | **享有最新内容**           | :heavy_check_mark:                                                                 | :x:                                                                                   |
@@ -71,9 +68,15 @@ Slimefun 4 可以在[鬼斩构建站](https://builds.guizhanss.com)页面中**�
 | **Bug 反馈**           | :heavy_check_mark:                                                                 | :x:                                                                                   |
 | **在发布前进行测试**         | :x:                                                                                | :heavy_check_mark:                                                                    |
 | **有无更新日志**           | :x:                                                                                | :memo: **[更新日志(英文)](https://github.com/Slimefun/Slimefun4/blob/master/CHANGELOG.md)** |
-| **下载链接**             | :package: **[下载 最新版](https://builds.guizhanss.com/StarWishsama/Slimefun4/master)** | :package: **[下载 "稳定版"](https://builds.guizhanss.com/StarWishsama/Slimefun4/release)** |
+| **下载链接**             | :package: **[下载 最新版](https://builds.guizhanss.com/SlimefunGuguProject/Slimefun4/master)** | :package: **[下载 "稳定版"](https://builds.guizhanss.com/SlimefunGuguProject/Slimefun4/release)** |
 
 **! 建议你使用最新的测试版，可以获得最新的内容更新和 Bug 修复！**
+
+## :computer: 如何编译
+要编译 Slimefun4，你必须先安装 [Git](https://git-scm.com/)
+然后 `git clone https://github.com/SlimefunGuguProject/Slimefun4.git`
+最后如果你是 Windows 系统: `.\mvnw.cmd package`
+如果你是类 Unix 系统: `.\mvnw package`
 
 ## :framed_picture: 截图
 
@@ -103,7 +106,7 @@ Slimefun 4 可以在[鬼斩构建站](https://builds.guizhanss.com)页面中**�
 单击下面的徽标加入 Discord 服务器反馈问题和提出意见，或者讨论关于此插件的内容。  
 Slimefun 官方经常会举办一些社区活动，加入我们了解更多。  
 **注意**：Slimefun 官方在 Discord 服务器 **不**
-接受任何形式的问题反馈，请使用 [问题追踪器](https://github.com/StarWishsama/Slimefun4/issues) 反馈问题！
+接受任何形式的问题反馈，请使用 [问题追踪器](https://github.com/SlimefunGuguProject/Slimefun4/issues) 反馈问题！
 
 在加入前请先了解官方 Discord 服务器[重要的规则](https://github.com/Slimefun/Slimefun4/wiki/Discord-Rules)。  
 不遵守以上规则的人可能会被从服务器中踢出甚至封禁。

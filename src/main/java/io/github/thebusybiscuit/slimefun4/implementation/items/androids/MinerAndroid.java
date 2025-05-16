@@ -1,5 +1,6 @@
 package io.github.thebusybiscuit.slimefun4.implementation.items.androids;
 
+import city.norain.slimefun4.api.menu.UniversalMenu;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.bakedlibs.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.api.events.AndroidMineEvent;
@@ -10,6 +11,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.utils.InfiniteBlockGenerator;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import java.util.Collection;
 import java.util.UUID;
@@ -20,7 +22,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Container;
@@ -70,12 +71,12 @@ public class MinerAndroid extends ProgrammableAndroid {
 
     @Override
     @ParametersAreNonnullByDefault
-    protected void dig(Block b, BlockMenu menu, Block block) {
+    protected void dig(Block b, UniversalMenu menu, Block block) {
         Collection<ItemStack> drops = block.getDrops(effectivePickaxe);
 
         if (!SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(block.getType()) && !drops.isEmpty()) {
-            OfflinePlayer owner =
-                    Bukkit.getOfflinePlayer(UUID.fromString(StorageCacheUtils.getData(b.getLocation(), "owner")));
+            OfflinePlayer owner = Bukkit.getOfflinePlayer(
+                    UUID.fromString(StorageCacheUtils.getUniversalBlock(menu.getUuid(), b.getLocation(), "owner")));
 
             if (Slimefun.getProtectionManager().hasPermission(owner, block.getLocation(), Interaction.BREAK_BLOCK)) {
                 AndroidMineEvent event = new AndroidMineEvent(block, new AndroidInstance(this, b));
@@ -86,7 +87,7 @@ public class MinerAndroid extends ProgrammableAndroid {
                 }
 
                 // We only want to break non-Slimefun blocks
-                if (!StorageCacheUtils.hasBlock(block.getLocation())) {
+                if (!StorageCacheUtils.hasSlimefunBlock(block.getLocation())) {
                     breakBlock(menu, drops, block);
                 }
             }
@@ -95,12 +96,12 @@ public class MinerAndroid extends ProgrammableAndroid {
 
     @Override
     @ParametersAreNonnullByDefault
-    protected void moveAndDig(Block b, BlockMenu menu, BlockFace face, Block block) {
+    protected void moveAndDig(Block b, UniversalMenu menu, BlockFace face, Block block) {
         Collection<ItemStack> drops = block.getDrops(effectivePickaxe);
 
         if (!SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(block.getType()) && !drops.isEmpty()) {
-            OfflinePlayer owner =
-                    Bukkit.getOfflinePlayer(UUID.fromString(StorageCacheUtils.getData(b.getLocation(), "owner")));
+            OfflinePlayer owner = Bukkit.getOfflinePlayer(
+                    UUID.fromString(StorageCacheUtils.getUniversalBlock(menu.getUuid(), b.getLocation(), "owner")));
 
             if (Slimefun.getProtectionManager().hasPermission(owner, block.getLocation(), Interaction.BREAK_BLOCK)) {
                 AndroidMineEvent event = new AndroidMineEvent(block, new AndroidInstance(this, b));
@@ -111,7 +112,7 @@ public class MinerAndroid extends ProgrammableAndroid {
                 }
 
                 // We only want to break non-Slimefun blocks
-                if (!StorageCacheUtils.hasBlock(block.getLocation())) {
+                if (!StorageCacheUtils.hasSlimefunBlock(block.getLocation())) {
                     breakBlock(menu, drops, block);
                     move(b, face, block);
                 }
@@ -124,7 +125,7 @@ public class MinerAndroid extends ProgrammableAndroid {
     }
 
     @ParametersAreNonnullByDefault
-    private void breakBlock(BlockMenu menu, Collection<ItemStack> drops, Block block) {
+    private void breakBlock(UniversalMenu menu, Collection<ItemStack> drops, Block block) {
 
         if (!block.getWorld().getWorldBorder().isInside(block.getLocation())) {
             return;
@@ -137,7 +138,7 @@ public class MinerAndroid extends ProgrammableAndroid {
             menu.pushItem(drop, getOutputSlots());
 
             if (block instanceof Container container) {
-                for (ItemStack content : container.getSnapshotInventory().getContents()) {
+                for (ItemStack content : container.getInventory().getContents()) {
                     block.getWorld().dropItemNaturally(block.getLocation(), content);
                 }
             }
@@ -157,7 +158,7 @@ public class MinerAndroid extends ProgrammableAndroid {
                 SoundEffect.MINER_ANDROID_BLOCK_GENERATION_SOUND.playAt(block);
                 block.getWorld()
                         .spawnParticle(
-                                Particle.SMOKE_NORMAL,
+                                VersionedParticle.SMOKE,
                                 block.getX() + 0.5,
                                 block.getY() + 1.25,
                                 block.getZ() + 0.5,

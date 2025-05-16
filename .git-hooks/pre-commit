@@ -1,19 +1,37 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo "[pre-commit check]"
 
-STAGED_FILES=$(git --no-pager diff --name-only --staged --line-prefix=$(git rev-parse --show-toplevel)/ | paste -sd ',')
-
-if [ ! -z "$STAGED_FILES" ]
-then
-  echo -n "Checking code format with spotless: "
-  mvn spotless:check -DspotlessFiles=$STAGED_FILES > /tmp/spotless.out 2>&1
-  RETURN_VALUE=$?
-  if [ $RETURN_VALUE -gt 0 ]
-  then
-    echo "Please run 'mvn spotless:check' for more details or 'mvn spotless:apply' to automatically fix the violations."
+spotless() {
+  if [ ! -e "./mvnw" ]; then
+    return 0
   fi
-  exit $RETURN_VALUE
-fi
 
-exit 0
+  local CHANGED_FILES="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $NF ~ /\.java?$/ { print $NF }')"
+
+  if [ -z "$CHANGED_FILES" ]; then
+    echo "No staged files."
+    return 0
+  fi
+
+  echo '[pre-commit] Executing spotlessCheck before commit'
+
+  git stash --quiet --keep-index
+
+  ./mvnw spotless:check -B
+
+  local RESULT=$?
+
+  git stash pop -q
+
+  if [ "$RESULT" -ne "0" ]; then
+    echo -e "spotless check failed..."
+    echo -e 'You can try "./mvnw spotless:apply" to apply auto-fixes.'
+  fi
+
+  return $RESULT
+}
+
+if ! spotless; then
+  exit 1
+fi

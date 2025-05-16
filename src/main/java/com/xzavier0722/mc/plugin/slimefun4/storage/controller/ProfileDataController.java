@@ -10,12 +10,14 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.util.DataUtils;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerBackpack;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,11 +48,18 @@ public class ProfileDataController extends ADataController {
 
         var key = new RecordKey(DataScope.PLAYER_PROFILE);
         key.addField(FieldKey.PLAYER_BACKPACK_NUM);
+        key.addField(FieldKey.PLAYER_NAME);
         key.addCondition(FieldKey.PLAYER_UUID, uuid);
 
         var result = getData(key);
         if (result.isEmpty()) {
             return null;
+        }
+
+        // check player name changed or not
+        var currentPlayerName = p.getName();
+        if (currentPlayerName != null && !currentPlayerName.equals(result.get(0).get(FieldKey.PLAYER_NAME))) {
+            updateUsername(uuid, currentPlayerName);
         }
 
         var bNum = result.get(0).getInt(FieldKey.BACKPACK_NUMBER);
@@ -268,11 +277,15 @@ public class ProfileDataController extends ADataController {
             if (is == null) {
                 scheduleDeleteTask(new UUIDKey(DataScope.NONE, bp.getOwner().getUniqueId()), key, false);
             } else {
-                var data = new RecordSet();
-                data.put(FieldKey.BACKPACK_ID, id);
-                data.put(FieldKey.INVENTORY_SLOT, slot + "");
-                data.put(FieldKey.INVENTORY_ITEM, is);
-                scheduleWriteTask(new UUIDKey(DataScope.NONE, bp.getOwner().getUniqueId()), key, data, false);
+                try {
+                    var data = new RecordSet();
+                    data.put(FieldKey.BACKPACK_ID, id);
+                    data.put(FieldKey.INVENTORY_SLOT, slot + "");
+                    data.put(FieldKey.INVENTORY_ITEM, is);
+                    scheduleWriteTask(new UUIDKey(DataScope.NONE, bp.getOwner().getUniqueId()), key, data, false);
+                } catch (IllegalArgumentException e) {
+                    Slimefun.logger().log(Level.WARNING, e.getMessage());
+                }
             }
         });
     }
@@ -297,6 +310,18 @@ public class ProfileDataController extends ADataController {
 
     public void getPlayerUuidAsync(String pName, IAsyncReadCallback<UUID> callback) {
         scheduleReadTask(() -> invokeCallback(callback, getPlayerUuid(pName)));
+    }
+
+    public void updateUsername(String uuid, String newName) {
+        var key = new RecordKey(DataScope.PLAYER_PROFILE);
+        key.addField(FieldKey.PLAYER_NAME);
+        key.addCondition(FieldKey.PLAYER_UUID, uuid);
+
+        var data = new RecordSet();
+        data.put(FieldKey.PLAYER_NAME, newName);
+        data.put(FieldKey.PLAYER_UUID, uuid);
+
+        scheduleWriteTask(new UUIDKey(DataScope.NONE, uuid), key, data, false);
     }
 
     private static RecordSet getRecordSet(PlayerBackpack bp) {
@@ -330,7 +355,7 @@ public class ProfileDataController extends ADataController {
                     return;
                 }
 
-                if (Bukkit.getOfflinePlayer(UUID.fromString(pUuid)).isOnline()) {
+                if (Bukkit.getOfflinePlayer(UUID.fromString(pUuid)).isConnected()) {
                     return;
                 }
 

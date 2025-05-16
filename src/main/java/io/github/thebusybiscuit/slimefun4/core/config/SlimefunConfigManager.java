@@ -65,6 +65,12 @@ public class SlimefunConfigManager {
     @Getter
     private boolean researchAutoConvert;
 
+    @Getter
+    private boolean bypassEnvironmentCheck;
+
+    @Getter
+    private boolean bypassItemLengthCheck;
+
     public SlimefunConfigManager(@Nonnull Slimefun plugin) {
         Validate.notNull(plugin, "The Plugin instance cannot be null");
 
@@ -114,6 +120,8 @@ public class SlimefunConfigManager {
             showVanillaRecipes = pluginConfig.getBoolean("guide.show-vanilla-recipes");
             showHiddenItemGroupsInSearch = pluginConfig.getBoolean("guide.show-hidden-item-groups-in-search");
             autoUpdate = pluginConfig.getBoolean("options.auto-update");
+            bypassEnvironmentCheck = pluginConfig.getBoolean("options.bypass-environment-check");
+            bypassItemLengthCheck = pluginConfig.getBoolean("options.bypass-item-length-check");
 
             researchesConfig.setDefaultValue("researches.currency-cost-convert-rate", 25.0);
             researchCurrencyCostConvertRate = researchesConfig.getDouble("researches.currency-cost-convert-rate");

@@ -40,6 +40,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import org.apache.commons.lang.Validate;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -1155,14 +1156,24 @@ public class SlimefunItem implements Placeable {
         } else if (isDisabled()) {
             // The Item has been disabled in the config
             if (sendMessage) {
-                Slimefun.getLocalization().sendMessage(p, "messages.disabled-item", true);
+                Slimefun.getLocalization()
+                        .sendMessage(
+                                p,
+                                "messages.disabled-item",
+                                true,
+                                msg -> msg.replace("%item_name%", ChatColor.stripColor(getItemName())));
             }
 
             return false;
         } else if (!Slimefun.getWorldSettingsService().isEnabled(p.getWorld(), this)) {
             // The Item was disabled in the current World
             if (sendMessage) {
-                Slimefun.getLocalization().sendMessage(p, "messages.disabled-in-world", true);
+                Slimefun.getLocalization()
+                        .sendMessage(
+                                p,
+                                "messages.disabled-in-world",
+                                true,
+                                msg -> msg.replace("%item_name%", ChatColor.stripColor(getItemName())));
             }
 
             return false;
@@ -1234,6 +1245,17 @@ public class SlimefunItem implements Placeable {
     }
 
     /**
+     * Retrieve a {@link Optional} {@link SlimefunItem} by its id.
+     *
+     * @param id
+     *            The id of the {@link SlimefunItem}
+     * @return The {@link Optional} {@link SlimefunItem} associated with that id. Empty if non-existent
+     */
+    public static @Nonnull Optional<SlimefunItem> getOptionalById(@Nonnull String id) {
+        return Optional.ofNullable(getById(id));
+    }
+
+    /**
      * Retrieve a {@link SlimefunItem} from an {@link ItemStack}.
      *
      * @param item
@@ -1256,6 +1278,17 @@ public class SlimefunItem implements Placeable {
         }
 
         return null;
+    }
+
+    /**
+     * Retrieve a {@link Optional} {@link SlimefunItem} from an {@link ItemStack}.
+     *
+     * @param item
+     *            The {@link ItemStack} to check
+     * @return The {@link Optional} {@link SlimefunItem} associated with this {@link ItemStack} if present, otherwise empty
+     */
+    public static @Nonnull Optional<SlimefunItem> getOptionalByItem(@Nullable ItemStack item) {
+        return Optional.ofNullable(getByItem(item));
     }
 
     /**
