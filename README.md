@@ -57,26 +57,94 @@ Slimefun 4 可以在[鬼斩构建站](https://builds.guizhanss.com)页面中**�
 
 以下是两种版本的区别:
 
-|                      | 测试版 (最新更新)                                                                         | "稳定版"                                                                                 |
-|----------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| **支持的 Minecraft 版本** | :video_game: 1.17.X - 1.21.2                                                       | :video_game: 1.17.X - 1.21.2                                                          |
-| **Java 版本**          | :computer: **Java 17+**                                                            | :computer: **Java 17+**                                                               |
-| **自动更新系统**           | :heavy_check_mark:                                                                 | :x:                                                                                   |
-| **频繁更新**             | :heavy_check_mark:                                                                 | :x:                                                                                   |
-| **享有最新内容**           | :heavy_check_mark:                                                                 | :x:                                                                                   |
-| **Discord 支持**       | :heavy_check_mark:                                                                 | :x:                                                                                   |
-| **Bug 反馈**           | :heavy_check_mark:                                                                 | :x:                                                                                   |
-| **在发布前进行测试**         | :x:                                                                                | :heavy_check_mark:                                                                    |
-| **有无更新日志**           | :x:                                                                                | :memo: **[更新日志(英文)](https://github.com/Slimefun/Slimefun4/blob/master/CHANGELOG.md)** |
+|                      | 测试版 (最新更新)                                                                                | "稳定版"                                                                                 |
+|----------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| **支持的 Minecraft 版本** | :video_game: 1.18.X - 1.20.X                                                              | :video_game: 1.16.X - 1.20.X                                                          |
+| **Java 版本**          | :computer: **Java 21+**                                                                   | :computer: **Java 17+**                                                               |
+| **自动更新系统**           | :heavy_check_mark:                                                                        | :x:                                                                                   |
+| **频繁更新**             | :heavy_check_mark:                                                                        | :x:                                                                                   |
+| **享有最新内容**           | :heavy_check_mark:                                                                        | :x:                                                                                   |
+| **Discord 支持**       | :heavy_check_mark:                                                                        | :x:                                                                                   |
+| **Bug 反馈**           | :heavy_check_mark:                                                                        | :x:                                                                                   |
+| **在发布前进行测试**         | :x:                                                                                       | :heavy_check_mark:                                                                    |
+| **有无更新日志**           | :x:                                                                                       | :memo: **[更新日志(英文)](https://github.com/Slimefun/Slimefun4/blob/master/CHANGELOG.md)** |
 | **下载链接**             | :package: **[下载 最新版](https://builds.guizhanss.com/SlimefunGuguProject/Slimefun4/master)** | :package: **[下载 "稳定版"](https://builds.guizhanss.com/SlimefunGuguProject/Slimefun4/release)** |
 
 **! 建议你使用最新的测试版，可以获得最新的内容更新和 Bug 修复！**
 
+## :computer: (开发) 添加依赖
+
+首先添加我们的私有仓库：
+
+Maven:
+
+```xml
+<repository>
+    <id>gugu-maven-repo</id>
+    <url>https://maven.norain.city/releases</url>
+</repository>
+
+```
+
+开发版:
+```xml
+<repository>
+    <id>gugu-maven-repo</id>
+    <url>https://maven.norain.city/snapshots</url>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+</repository>
+```
+
+Gradle: 在 `build.gradle.kts` 中添加以下内容:
+
+```kotlin
+repositories {
+    maven {
+        url "https://maven.norain.city/releases"
+    }
+}
+```
+
+对于开发版：
+```kotlin
+repositories {
+    maven {
+        url "https://maven.norain.city/snapshots"
+    }
+}
+```
+
+接下来添加 Slimefun 4 作为依赖:
+Maven:
+
+```xml
+<dependency>
+    <groupId>com.github.SlimefunGuguProject</groupId>
+    <artifactId>Slimefun4</artifactId>
+    <version>DEV-SNAPSHOT</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+Gradle:
+
+```kotlin
+dependencies {
+    compileOnly("com.github.SlimefunGuguProject:Slimefun4:DEV-SNAPSHOT")
+}
+```
+
+
 ## :computer: 如何编译
 要编译 Slimefun4，你必须先安装 [Git](https://git-scm.com/)
-然后 `git clone https://github.com/SlimefunGuguProject/Slimefun4.git`
-最后如果你是 Windows 系统: `.\mvnw.cmd package`
-如果你是类 Unix 系统: `.\mvnw package`
+
+然后运行 `git clone https://github.com/SlimefunGuguProject/Slimefun4.git` 克隆仓库到本地。
+
+最后进行编译：
+- 如果你是 Windows 系统: `./gradlew.bat build`
+- 如果你是类 Unix 系统: `./gradlew build`
 
 ## :framed_picture: 截图
 
